@@ -19,3 +19,6 @@ _site/
 # Claude Code
 .claude/
 claude.md
+
+# Real articles (preview mode)
+_drafts/
