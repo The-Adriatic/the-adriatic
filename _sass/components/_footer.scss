@@ -106,7 +106,7 @@
   }
 }
 
-/* Copy Link Button (for newsletter page footer) */
+/* Copy Link Button (for newsletter page footer - mobile only) */
 .footer-copy-btn {
   display: inline-flex;
   align-items: center;
@@ -131,6 +131,11 @@
   .copy-text {
     min-width: 52px;
     text-align: left;
+  }
+
+  // Hide on desktop - glass cursor handles the interaction
+  @media (hover: hover) {
+    display: none;
   }
 }
 

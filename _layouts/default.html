@@ -132,7 +132,7 @@
           <span>ADRIATIC</span>
         </div>
         {% if page.url == '/newsletter/' %}
-        <div class="footer-cta-box">
+        <div class="footer-cta-box" data-glass-cursor="Copy the <span class='glass-cursor-highlight'>link</span>" data-copy-url="{{ '/newsletter' | absolute_url }}">
           <span class="footer-cta-heading">Share with a friend.</span>
           <span class="footer-cta-tagline">Know someone who'd enjoy this?</span>
           <button class="footer-copy-btn" id="footerShareBtn" data-url="{{ '/newsletter' | absolute_url }}">
@@ -237,7 +237,7 @@
       });
     }
 
-    // Footer share button
+    // Footer share button (mobile)
     const shareBtn = document.getElementById('footerShareBtn');
     if (shareBtn) {
       shareBtn.addEventListener('click', function() {
@@ -260,6 +260,40 @@
           document.execCommand('copy');
           document.body.removeChild(textarea);
           showCopiedMessage();
+        });
+      });
+    }
+
+    // Footer CTA box click handler (desktop - when button is hidden)
+    const footerCtaBox = document.querySelector('.footer-cta-box[data-copy-url]');
+    if (footerCtaBox) {
+      const glassCursorText = document.querySelector('.glass-cursor-text');
+      const originalText = footerCtaBox.getAttribute('data-glass-cursor');
+
+      footerCtaBox.addEventListener('click', function(e) {
+        // Don't trigger if clicking the button itself (mobile)
+        if (e.target.closest('.footer-copy-btn')) return;
+
+        const url = this.dataset.copyUrl;
+
+        function showCopiedInCursor() {
+          if (glassCursorText) {
+            glassCursorText.innerHTML = 'Link copied! Now <span class="glass-cursor-highlight">send it their way.</span>';
+            // Reset after 5 seconds
+            setTimeout(function() {
+              glassCursorText.innerHTML = originalText;
+            }, 5000);
+          }
+        }
+
+        navigator.clipboard.writeText(url).then(showCopiedInCursor).catch(function() {
+          const textarea = document.createElement('textarea');
+          textarea.value = url;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showCopiedInCursor();
         });
       });
     }
