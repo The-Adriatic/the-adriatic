@@ -24,9 +24,12 @@
   font-style: normal;
   text-transform: uppercase;
   letter-spacing: -0.02em;
-  line-height: 0.75;
+  line-height: 1;
   color: var(--adriatic-accent);
   margin: 3rem 0 0;
+  // Negative margin compensates for line-height to maintain visual spacing
+  // while preventing overlap issues on Windows
+  margin-bottom: -0.15em;
 }
 
 // Desktop title: single line (hidden on mobile)
