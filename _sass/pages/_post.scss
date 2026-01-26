@@ -26,7 +26,7 @@
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   font-style: italic;
-  line-height: 0.95;
+  line-height: 1;
   color: var(--adriatic-text);
   margin-top: 1rem;
   margin-bottom: 0.4rem;
@@ -187,15 +187,15 @@
     }
   }
 
-  // Full-width images (overflow-safe)
+  // Full-width images (overflow-safe, Windows scrollbar compatible)
   .full-width {
     width: 100%;
-    max-width: 100vw;
+    max-width: none;
     position: relative;
     left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    transform: translateX(-50%);
+    margin-left: 0;
+    margin-right: 0;
 
     img {
       width: 100%;

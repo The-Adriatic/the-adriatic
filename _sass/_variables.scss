@@ -12,12 +12,12 @@
   --adriatic-card-bg: #ffffff;
   --adriatic-border: #d4cfc7;
 
-  // Typography
+  // Typography (with Windows/cross-platform fallbacks)
   --adriatic-font-masthead: 'Adriatic Journal', Georgia, serif;
   --adriatic-font-display: 'Adriatic22', Georgia, serif;
   --adriatic-font-body: 'Adriatic22', Georgia, serif;
-  --adriatic-font-sans: 'Inter', -apple-system, sans-serif;
-  --adriatic-font-default: 'Inter', -apple-system, sans-serif;
+  --adriatic-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --adriatic-font-default: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   // Shadows (Jakub-style layered)
   --shadow-sm:
