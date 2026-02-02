@@ -17,7 +17,7 @@ a.feature-hero-container {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  align-items: center;
+  align-items: start;
 
   &:hover {
     .feature-image-wrapper img {
@@ -36,7 +36,7 @@ a.feature-hero-container {
   padding-right: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 
   @media (max-width: 1024px) {
     order: 1;
