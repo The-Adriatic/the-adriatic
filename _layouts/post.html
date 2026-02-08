@@ -77,6 +77,49 @@ layout: default
   {{ content }}
 </article>
 
+<!-- Author Bio -->
+{% if page.author %}
+{% assign author_data = site.data.authors[page.author] %}
+{% if author_data.bio %}
+<div class="author-bio">
+  <p class="author-bio-text">{{ author_data.bio }}</p>
+</div>
+{% endif %}
+{% endif %}
+
+<!-- Related Articles -->
+{% assign related = "" | split: "" %}
+{% for post in site.posts %}
+  {% if post.url != page.url and post.category == page.category and post.hidden != true %}
+    {% assign related = related | push: post %}
+  {% endif %}
+  {% if related.size >= 3 %}{% break %}{% endif %}
+{% endfor %}
+{% if related.size < 3 %}
+  {% for post in site.posts %}
+    {% if post.url != page.url and post.category != page.category and post.hidden != true %}
+      {% assign already = false %}
+      {% for r in related %}{% if r.url == post.url %}{% assign already = true %}{% endif %}{% endfor %}
+      {% unless already %}
+        {% assign related = related | push: post %}
+      {% endunless %}
+    {% endif %}
+    {% if related.size >= 3 %}{% break %}{% endif %}
+  {% endfor %}
+{% endif %}
+{% if related.size > 0 %}
+<nav class="related-articles">
+  <h2 class="related-heading">Read next</h2>
+  <ul class="related-list">
+    {% for post in related %}
+    <li class="related-item">
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}
+
 <!-- Post Footer -->
 <footer class="post-footer">
   <a href="{{ '/' | relative_url }}" class="back-link">

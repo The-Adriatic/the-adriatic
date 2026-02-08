@@ -6,21 +6,29 @@
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 1.5rem 0;
+
+  &:hover .horizontal-card {
+    opacity: 0.4;
+  }
+
+  .horizontal-card:hover {
+    opacity: 1;
+  }
 }
 
 .horizontal-card {
   display: grid;
-  grid-template-columns: minmax(200px, 280px) 1fr minmax(100px, 140px);
+  grid-template-columns: minmax(200px, 280px) 1fr;
   gap: 2rem;
   padding: 20px 0;
-  border-top: 1px solid var(--adriatic-border);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   text-decoration: none;
   color: inherit;
   align-items: start;
-  transition: background-color 0.2s ease;
+  transition: opacity 0.15s ease;
 
   &:last-child {
-    border-bottom: 1px solid var(--adriatic-border);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
 }
@@ -32,7 +40,7 @@
   border-radius: 0;
   margin-left: 1.5rem;
   box-shadow: var(--shadow-md);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.15s ease;
 
   img {
     width: 100%;
@@ -49,9 +57,9 @@
 
 .horizontal-card-date {
   font-family: var(--adriatic-font-sans);
-  font-size: 0.875rem;
-  color: var(--adriatic-text-muted);
-  padding-top: 0.25rem;
+  font-size: 12px;
+  font-weight: 450;
+  color: var(--adriatic-text-secondary);
 }
 
 .horizontal-card-text {
@@ -62,13 +70,12 @@
 
 .horizontal-card-title {
   font-family: var(--adriatic-font-display);
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 700;
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.01em;
   color: var(--adriatic-text);
   margin: 0;
-  transition: color 0.2s ease;
 }
 
 .horizontal-card-excerpt {
@@ -96,7 +103,7 @@
   gap: 1.5rem;
   padding: 2rem 0 0;
   margin-top: 1rem;
-  border-top: 1px solid var(--adriatic-border);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 
   // Grid cards have vertical layout on desktop
   .grid-card {
@@ -115,7 +122,7 @@
       top: 0;
       bottom: 0;
       width: 1px;
-      background-color: var(--adriatic-border);
+      background-color: rgba(0, 0, 0, 0.06);
     }
 
     &:last-child {
@@ -123,13 +130,8 @@
     }
 
     .horizontal-card-image {
-      order: 2;
       margin-left: 0;
       aspect-ratio: 4/3;
-    }
-
-    .horizontal-card-text {
-      order: 3;
     }
 
     .horizontal-card-title {
@@ -138,18 +140,13 @@
       line-height: 1.1;
       margin-top: 0.5rem;
     }
-
-    .horizontal-card-date {
-      order: 1;
-      padding-top: 0;
-    }
   }
 }
 
 // Responsive
 @media (max-width: 1024px) {
   .horizontal-card {
-    grid-template-columns: minmax(140px, 200px) 1fr minmax(80px, 120px);
+    grid-template-columns: minmax(140px, 200px) 1fr;
     gap: 1.5rem;
   }
 
@@ -177,17 +174,7 @@
     padding: 1.5rem 0;
   }
 
-  .horizontal-card-date {
-    order: 1;
-    font-size: 0.8rem;
-  }
-
-  .horizontal-card-text {
-    order: 2;
-  }
-
   .horizontal-card-image {
-    order: 3;
     margin-left: 0;
     max-width: 100%;
     aspect-ratio: 16/9;
@@ -224,7 +211,7 @@
       grid-template-columns: 1fr;
       gap: 1rem;
       padding: 1.5rem 0;
-      border-top: 1px solid var(--adriatic-border);
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
 
       // Remove vertical dividers on mobile
       &:not(:last-child)::after {
@@ -235,24 +222,9 @@
         border-bottom: none;
       }
 
-      // Match horizontal card order: date → text → image
-      .horizontal-card-date {
-        order: 1;
-      }
-
-      .horizontal-card-text {
-        order: 2;
-      }
-
-      .horizontal-card-image {
-        order: 3;
-        aspect-ratio: 16/9;
-        max-height: 200px;
-      }
-
       .horizontal-card-title {
         font-size: 1.25rem;
-        font-weight: 700;
+        font-weight: 600;
         line-height: 1.25;
         margin-top: 0;
       }

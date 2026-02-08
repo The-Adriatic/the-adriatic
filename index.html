@@ -100,11 +100,11 @@ title: The Adriatic
       {% endif %}
     </div>
     <div class="horizontal-card-text">
+      <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
       <h3 class="horizontal-card-title">{{ post.title }}</h3>
       {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>{% endif %}
-      <span class="horizontal-card-author">by {{ post.author }}</span>
+      <span class="horizontal-card-author">By {{ post.author }}</span>
     </div>
-    <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
   </a>
   {% endfor %}
 
@@ -120,11 +120,11 @@ title: The Adriatic
         {% endif %}
       </div>
       <div class="horizontal-card-text">
+        <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
         <h3 class="horizontal-card-title">{{ post.title }}</h3>
         {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>{% endif %}
-        <span class="horizontal-card-author">by {{ post.author }}</span>
+        <span class="horizontal-card-author">By {{ post.author }}</span>
       </div>
-      <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
     </a>
     {% endfor %}
   </div>

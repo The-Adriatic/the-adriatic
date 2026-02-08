@@ -125,20 +125,14 @@
 
 .view-more-btn {
   display: inline-block;
-  background: transparent;
-  border: 1px solid var(--adriatic-border);
-  border-radius: 4px;
-  padding: 0.75rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-family: var(--adriatic-font-sans);
+  font-size: 0.875rem;
   text-decoration: none;
-  color: var(--adriatic-text);
+  color: var(--adriatic-text-muted);
   cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
+  transition: opacity 0.15s ease;
 
   &:hover {
-    border-color: var(--adriatic-text);
-    background: rgba(0, 0, 0, 0.05);
+    opacity: 0.5;
   }
 }
