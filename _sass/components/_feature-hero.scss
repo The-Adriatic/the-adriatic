@@ -19,9 +19,11 @@ a.feature-hero-container {
   cursor: pointer;
   align-items: start;
 
-  &:hover {
-    .feature-headline {
-      color: var(--adriatic-accent);
+  @media (hover: hover) {
+    &:hover {
+      .feature-headline {
+        color: var(--adriatic-accent);
+      }
     }
   }
 

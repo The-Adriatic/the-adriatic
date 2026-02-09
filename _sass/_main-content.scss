@@ -5,7 +5,7 @@
 .adriatic-main {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 0.5rem + 2.5vw, 2rem);
   // Use dynamic viewport height with fallback for mobile browser URL bars
   min-height: 100vh;
   min-height: 100dvh;

@@ -50,12 +50,14 @@
     opacity: 0.4;
   }
 
-  &:hover .archive-item a {
-    opacity: 0.4;
-  }
+  @media (hover: hover) {
+    &:hover .archive-item a {
+      opacity: 0.4;
+    }
 
-  .archive-item:hover a {
-    opacity: 1;
+    .archive-item:hover a {
+      opacity: 1;
+    }
   }
 }
 
@@ -121,8 +123,10 @@
   text-decoration: none;
   transition: opacity 0.15s ease;
 
-  &:hover:not(.disabled) {
-    opacity: 0.7;
+  @media (hover: hover) {
+    &:hover:not(.disabled) {
+      opacity: 0.7;
+    }
   }
 
   &.disabled {
@@ -150,8 +154,10 @@
   justify-content: center;
   transition: opacity 0.15s ease;
 
-  &:hover {
-    opacity: 0.7;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   &.active {

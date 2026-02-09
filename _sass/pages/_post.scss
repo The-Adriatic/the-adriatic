@@ -23,10 +23,10 @@
 
 .post-title {
   font-family: var(--adriatic-font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 4rem);
   font-weight: 400;
   font-style: normal;
-  line-height: 1;
+  line-height: 0.9;
   letter-spacing: -0.02em;
   color: var(--adriatic-text);
   margin-top: 1rem;
@@ -35,7 +35,7 @@
 
 .post-deck {
   font-family: var(--adriatic-font-sans);
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.4;
   color: var(--adriatic-text-muted);
@@ -102,7 +102,7 @@
   padding: 0 2rem 2rem;
   font-family: var(--adriatic-font-body);
   font-size: 1.25rem;
-  line-height: 1.5rem;
+  line-height: 1.5;
   color: var(--adriatic-text);
 
   p {
@@ -153,8 +153,10 @@
       transition: filter 0.15s ease;
     }
 
-    &:hover mark {
-      filter: brightness(0.92);
+    @media (hover: hover) {
+      &:hover mark {
+        filter: brightness(0.92);
+      }
     }
   }
 
@@ -264,8 +266,10 @@
     text-decoration: none;
     transition: opacity 0.15s ease;
 
-    &:hover {
-      opacity: 0.4;
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.4;
+      }
     }
   }
 }
@@ -311,8 +315,10 @@
     color: var(--adriatic-text-muted);
     transition: opacity 0.15s ease;
 
-    &:hover {
-      opacity: 0.5;
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 }
@@ -331,8 +337,10 @@
   cursor: pointer;
   transition: color 0.15s;
 
-  &:hover {
-    color: rgba(0, 0, 0, 0.7);
+  @media (hover: hover) {
+    &:hover {
+      color: rgba(0, 0, 0, 0.7);
+    }
   }
 
   svg {
@@ -378,8 +386,10 @@
   align-items: center;
   gap: 0.5rem;
 
-  &:hover {
-    opacity: 0.5;
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.5;
+    }
   }
 }
 

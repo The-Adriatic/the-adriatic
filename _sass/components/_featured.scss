@@ -17,8 +17,10 @@ a.featured-hero-container {
   cursor: pointer;
   align-items: start;
 
-  &:hover .featured-headline {
-    color: var(--adriatic-accent);
+  @media (hover: hover) {
+    &:hover .featured-headline {
+      color: var(--adriatic-accent);
+    }
   }
 
   @media (min-width: 1024px) {

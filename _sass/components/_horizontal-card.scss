@@ -18,8 +18,10 @@
   color: inherit;
   align-items: start;
 
-  &:hover .horizontal-card-title {
-    color: var(--adriatic-accent);
+  @media (hover: hover) {
+    &:hover .horizontal-card-title {
+      color: var(--adriatic-accent);
+    }
   }
 
   &:last-child {
@@ -218,6 +220,11 @@
         border-bottom: none;
       }
 
+      .horizontal-card-image {
+        aspect-ratio: 16/9;
+        max-height: 200px;
+      }
+
       .horizontal-card-title {
         font-size: 1.25rem;
         font-weight: 400;
@@ -253,6 +260,7 @@
     gap: 0.75rem;
 
     .horizontal-card-image {
+      aspect-ratio: 16/9;
       max-height: 180px;
     }
 

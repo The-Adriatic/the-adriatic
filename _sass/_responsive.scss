@@ -65,9 +65,8 @@
     font-size: 0.75rem;
   }
 
-  // Add padding to main content for fixed navbar
+  // Add top padding for fixed navbar
   .adriatic-main {
-    padding: 0 1rem;
     padding-top: 4rem;
   }
 
@@ -130,6 +129,7 @@
 
   a.featured-hero-container {
     grid-template-rows: 70vh;
+    grid-template-rows: 70dvh;
     border-radius: 0;
   }
 
@@ -191,10 +191,6 @@
   .post-footer {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .post-title {
-    font-size: 2rem;
   }
 
   .post-lede {
@@ -302,6 +298,7 @@
 @media (max-width: 480px) {
   a.featured-hero-container {
     grid-template-rows: 60vh;
+    grid-template-rows: 60dvh;
   }
 
   .featured-content-sticky {
@@ -338,7 +335,7 @@
 
   // Extra small masthead - hide divider and categories
   .header-meta {
-    font-size: 0.55rem;
+    font-size: clamp(0.625rem, 1.5vw, 0.75rem);
 
     .divider,
     .categories {
