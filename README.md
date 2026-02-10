@@ -77,3 +77,5 @@ The approach: start with the feeling you want, then figure out the implementatio
 ---
 
 Made with care in Ljubljana.
+
+<!-- Test edit: 2026-02-10 - Verifying GitHub repo connection -->
