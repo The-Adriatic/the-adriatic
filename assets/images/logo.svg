@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <style>
+      @import url('https://fonts.cdnfonts.com/css/adriatic-journal');
+      .logo-text {
+        font-family: 'Adriatic Journal', Georgia, serif;
+        fill: #1a1a1a;
+        letter-spacing: 0.02em;
+      }
+      .logo-the {
+        font-size: 60px;
+        font-weight: 400;
+      }
+      .logo-adriatic {
+        font-size: 60px;
+        font-weight: 400;
+      }
+    </style>
+  </defs>
+
+  <!-- THE -->
+  <text x="200" y="52" text-anchor="middle" class="logo-text logo-the">THE</text>
+
+  <!-- ADRIATIC -->
+  <text x="200" y="100" text-anchor="middle" class="logo-text logo-adriatic">ADRIATIC</text>
+</svg>

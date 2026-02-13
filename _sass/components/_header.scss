@@ -26,7 +26,14 @@
   letter-spacing: -0.02em;
   line-height: 1;
   color: var(--adriatic-accent);
-  margin: 3rem 0 0;
+  margin: 2rem 0 2rem;
+}
+
+.adriatic-logo {
+  display: block;
+  margin: 0 auto 0.5rem;
+  max-width: 100%;
+  height: auto;
 }
 
 // Desktop title: single line (hidden on mobile)

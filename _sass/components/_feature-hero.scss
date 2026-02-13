@@ -126,7 +126,7 @@ a.feature-hero-container {
 
 @media (max-width: 768px) {
   .feature-hero {
-    padding: 2rem 1rem;
+    padding: 2rem 0;
   }
 
   .feature-text {
@@ -144,7 +144,7 @@ a.feature-hero-container {
 
 @media (max-width: 480px) {
   .feature-hero {
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 0;
   }
 
   a.feature-hero-container {
