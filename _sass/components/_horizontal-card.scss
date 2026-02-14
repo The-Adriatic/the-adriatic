@@ -35,7 +35,6 @@
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 0;
-  margin-left: 1.5rem;
   box-shadow: var(--shadow-md);
   transition: box-shadow 0.15s ease;
 
@@ -146,10 +145,6 @@
   .horizontal-card {
     grid-template-columns: minmax(140px, 200px) 1fr;
     gap: 1.5rem;
-  }
-
-  .horizontal-card-image {
-    margin-left: 1rem;
   }
 
   .horizontal-card-title {

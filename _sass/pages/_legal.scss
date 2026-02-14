@@ -1,0 +1,133 @@
+// =============================================
+//   Legal Pages (Privacy, Terms)
+//   Agentation-style design
+// =============================================
+
+.legal-container {
+  max-width: 576px;
+  margin: 0 auto;
+  padding: 64px clamp(1rem, 0.5rem + 2.5vw, 2rem) 48px;
+  font-family: var(--adriatic-font-sans);
+
+  h1 {
+    font-family: var(--adriatic-font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: rgba(0, 0, 0, 0.85);
+    margin: 0 0 1rem;
+  }
+
+  // Date/last updated
+  > p:first-of-type {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.4);
+    margin: 0 0 32px;
+
+    em {
+      font-style: normal;
+    }
+  }
+
+  // Section headings
+  h2 {
+    font-family: var(--adriatic-font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.85);
+    margin: 2.1875rem 0 1rem;
+    text-align: left;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  // Body paragraphs
+  p {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0 0 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    // Bold inline text
+    strong {
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+
+  // Links
+  a {
+    color: var(--adriatic-accent);
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // Contact info block
+  p:has(strong:first-child) {
+    line-height: 1.5;
+  }
+}
+
+// =============================================
+//   Legal Pages Responsive
+// =============================================
+
+@media (max-width: 768px) {
+  .legal-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.375rem;
+      margin: 1.75rem 0 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .legal-container {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+
+    > p:first-of-type {
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p, em {
+      font-size: 0.8125rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -161,6 +161,18 @@
   font-size: 0.875rem;
   color: var(--adriatic-text);
   line-height: 1.4;
+
+  a {
+    color: var(--adriatic-accent);
+    text-decoration: underline;
+    transition: opacity 0.15s;
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
 }
 
 .subscribe-button {
