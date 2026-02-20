@@ -71,13 +71,18 @@
         return;
       }
 
-      const text = figcaption.innerHTML;
+      const text = figcaption.textContent;
       const pipeIndex = text.lastIndexOf(' | ');
 
       if (pipeIndex !== -1) {
         const caption = text.substring(0, pipeIndex);
         const credit = text.substring(pipeIndex + 3); // Skip ' | '
-        figcaption.innerHTML = caption + ' <span class="credit">' + credit + '</span>';
+        figcaption.textContent = '';
+        figcaption.appendChild(document.createTextNode(caption + ' '));
+        const span = document.createElement('span');
+        span.className = 'credit';
+        span.textContent = credit;
+        figcaption.appendChild(span);
       }
     });
   }
