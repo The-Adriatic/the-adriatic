@@ -24,6 +24,7 @@ permalink: /:year/:month/:day/:title/
 sass:
   sass_dir: _sass
   style: compressed
+  sourcemap: never
 
 # Plugins
 plugins:
@@ -63,3 +64,10 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - api
+  - CLAUDE.md
+  - claude.md
+  - README.md
+  - docs
+  - references
+  - test-*.html
