@@ -43,7 +43,7 @@ async function hashIP(ip) {
 
 // Upstash Redis REST helper
 async function redis(env, ...args) {
-  const res = await fetch(`${env.UPSTASH_REDIS_REST_URL}`, {
+  const res = await fetch(env.UPSTASH_REDIS_REST_URL.replace(/\/+$/, ''), {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`,
@@ -58,7 +58,9 @@ async function redis(env, ...args) {
 
 // Pipeline: multiple commands in one round-trip
 async function redisPipeline(env, commands) {
-  const res = await fetch(`${env.UPSTASH_REDIS_REST_URL}/pipeline`, {
+  const baseUrl = env.UPSTASH_REDIS_REST_URL.replace(/\/+$/, '');
+  const url = `${baseUrl}/pipeline`;
+  const res = await fetch(url, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.UPSTASH_REDIS_REST_TOKEN}`,
@@ -67,6 +69,9 @@ async function redisPipeline(env, commands) {
     body: JSON.stringify(commands),
   });
   const body = await res.json();
+  if (!Array.isArray(body)) {
+    throw new Error(body.error || 'Unexpected pipeline response');
+  }
   return body.map(r => r.result);
 }
 
