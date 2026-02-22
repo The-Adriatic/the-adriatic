@@ -115,7 +115,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 
   h2 {
     text-align: left;
@@ -151,12 +151,13 @@
   font-size: 0.8125rem;
   font-weight: 500;
   color: #fff;
-  background: #111;
+  background: #1a1a1a;
   border: none;
   border-radius: 6px;
-  padding: 7px 14px;
+  padding: 8px 14px;
+  box-shadow: none;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: color 0.15s, background-color 0.15s, box-shadow 0.15s;
   white-space: nowrap;
 
   @media (hover: hover) {
@@ -205,11 +206,24 @@
     transform: scale(0.8);
   }
 
-  &.copied {
+  // Flash peak: bright green + compress
+  &.flash-peak {
     background: #16a34a;
+    transform: scale(0.92);
+    transition: color 0.15s, background-color 0.05s, transform 0.08s ease-in;
+  }
 
-    &:hover {
-      background: #16a34a;
+  // Copied: settle to green + spring back
+  &.copied {
+    color: #fff;
+    background: #16a34a;
+    box-shadow: none;
+    animation: contributeCopySpring 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+    @media (hover: hover) {
+      &:hover {
+        background: #16a34a;
+      }
     }
 
     .label-default {
@@ -231,11 +245,18 @@
   }
 }
 
+@keyframes contributeCopySpring {
+  0%   { transform: scale(0.92); }
+  50%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
 .contribute-note {
   font-family: var(--adriatic-font-sans);
   font-size: 0.75rem;
   color: rgba(0, 0, 0, 0.4);
   line-height: 1.4;
+  white-space: nowrap;
 }
 
 // =============================================
