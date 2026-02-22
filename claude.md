@@ -59,8 +59,7 @@ assets/
   css/           # Compiled CSS
   js/
     external-links.js
-    tailwind.js
-  fonts/         # Custom typefaces (Adriatic Journal, Adriatic22)
+  fonts/         # Custom typefaces (woff2 only: Adriatic Journal, Adriatic22)
 
 # Root pages
 index.html       # Homepage
@@ -72,8 +71,13 @@ privacy.html     # Privacy policy
 terms.html       # Terms of use
 404.html         # Error page
 
-# Test/dev pages (not deployed)
-test-copy-animations.html  # Animation sandbox for testing copy button effects
+# Test/dev pages (built but not linked from site)
+test-article-sections.html
+test-clocks.html
+test-menu-animations.html
+test-subscribe-buttons.html
+navbar-redesign.html
+performance-report.html
 ```
 
 ## Key Files
@@ -113,7 +117,7 @@ test-copy-animations.html  # Animation sandbox for testing copy button effects
 
 **iOS scroll lock:** Mobile menu uses `position: fixed` + `top: -scrollY` technique instead of `overflow: hidden` on body. The `lockScroll()`/`unlockScroll()` helpers are in `default.html`.
 
-**Navbar height variable:** `--navbar-height: 56px` in `:root` — used by `.mobile-menu { top: var(--navbar-height) }`. Update this variable if navbar padding changes.
+**Navbar height variable:** `--navbar-height: 56px` in `:root`, overridden to `48px` at ≤768px. Used by `.mobile-menu { top: var(--navbar-height) }`. Update this variable if navbar padding changes.
 
 **Line-height:** Use unitless values (e.g., `1.5`) not absolute rem values. Absolute values create wrong ratios when font-size changes across breakpoints.
 
@@ -126,7 +130,7 @@ test-copy-animations.html  # Animation sandbox for testing copy button effects
 - Border: `#d4cfc7`
 
 ### Layout
-- Navbar height: `--navbar-height: 56px`
+- Navbar height: `--navbar-height: 56px` (desktop), `48px` (mobile ≤768px)
 
 ### Typography
 - Masthead: `Adriatic Journal`
@@ -187,7 +191,10 @@ This ensures the sidebar respects its padding and stays within viewport bounds.
 - Social icons at bottom of overlay (`bottom: 2rem`)
 
 **JS toggle logic:**
-- `toggleMobileMenu()` adds/removes `is-open` on `.mobile-menu` and `menu-open` on `.sidebar`
+- `openMenu()` / `closeMenu()` / `forceCloseMenu()` — sequential Web Animations API with Promise chains
+- `openMenu()`: bg fade → links spring in (staggered) → footer springs in
+- `closeMenu()`: footer out → links out (staggered) → bg out → cleanup
+- `forceCloseMenu()`: cancels all running animations, snaps to closed state
 - Prevents body scroll via `lockScroll()` / `unlockScroll()` (position: fixed technique for iOS)
 - Closes on Escape key or clicking a nav link
 
@@ -378,6 +385,39 @@ image_credit: "Photographer"
 - Twitter card: `summary_large_image`
 - `fb:app_id` not configured (optional, but Facebook debugger flags it)
 
+### Cloudinary Image Conventions
+
+All Cloudinary image URLs **must** include `f_auto,q_auto` transforms. These go between `upload/` and the version string:
+
+```
+https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_800/v123456/the-adriatic/...
+```
+
+- `f_auto` — auto-serves WebP/AVIF based on browser support
+- `q_auto` — auto-compresses without visible quality loss
+- `w_XXX` — width constraint (prevents oversized downloads)
+
+**Width guidelines:**
+- Cookie banner mascot: `w_240` (120px display, 2× retina)
+- Footer stamps: `w_400`
+- Article hero images: `w_1200` (default), with `srcset` variants at `w_400`, `w_800`, `w_1200`
+- og:image / social sharing: `w_1200`
+- 404 illustration: `w_600`
+
+**Responsive `srcset` pattern** for article images:
+```html
+<img
+  src="https://res.cloudinary.com/.../f_auto,q_auto,w_800/v123/image.jpg"
+  srcset="
+    https://res.cloudinary.com/.../f_auto,q_auto,w_400/v123/image.jpg 400w,
+    https://res.cloudinary.com/.../f_auto,q_auto,w_800/v123/image.jpg 800w,
+    https://res.cloudinary.com/.../f_auto,q_auto,w_1200/v123/image.jpg 1200w"
+  sizes="(max-width: 768px) 100vw, 800px"
+  alt="..." loading="lazy">
+```
+
+Use `loading="eager"` for above-the-fold hero images, `loading="lazy"` for everything else.
+
 ### Windows/Cross-Platform Compatibility
 
 **Problem:** Header masthead (`.adriatic-title`) overlaps with `.header-meta` on Windows due to ClearType font rendering differences. Windows calculates font bounding boxes differently than macOS.
@@ -414,7 +454,7 @@ image_credit: "Photographer"
 CSP meta tag in `default.html` restricts script/style/font/image/connect sources to known domains. Uses `'unsafe-inline'` for scripts (10+ inline blocks; nonce-based CSP would require major refactoring). When migrating to App Platform, move CSP to HTTP header and add `frame-ancestors 'self'`.
 
 ### Build Exclusions
-`_config.yml` excludes from `_site/`: `CLAUDE.md`, `claude.md`, `README.md`, `docs/`, `references/`, `test-*.html`, `api/`. Source maps disabled (`sourcemap: never`).
+`_config.yml` excludes from `_site/`: `CLAUDE.md`, `claude.md`, `README.md`, `docs/`, `references/`, `api/`. Source maps disabled (`sourcemap: never`). Note: `test-*.html` pages are NOT excluded — they build into `_site/` but aren't linked from the live site.
 
 ### XSS Prevention
 - `archive.html` search suggestions escape post titles/URLs via `escapeHTML()` before DOM injection
@@ -439,7 +479,6 @@ CSP meta tag in `default.html` restricts script/style/font/image/connect sources
 - [ ] `events.html`: Create events page?
 - [ ] Test Windows rendering on BrowserStack and verify header fix
 - [ ] Convert masthead title to SVG for consistent cross-platform rendering
-- [x] Deploy likes API — live at `adriatic-likes.aztavcar.workers.dev`
 - [ ] Add rate limiting to likes API (Cloudflare dashboard or Worker-level)
 - [ ] Move CSP to HTTP header when migrating to DigitalOcean App Platform
 - [ ] Self-host Google Fonts for SRI + performance (already have some woff2 files)

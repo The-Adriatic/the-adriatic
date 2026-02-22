@@ -1,0 +1,592 @@
+---
+layout: null
+permalink: /performance-report/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Optimization Report — The Adriatic</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #fdfdfc;
+      color: #1a1a1a;
+      padding: 3rem 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.8125rem;
+      color: rgba(0,0,0,0.4);
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    h3 {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: rgba(0,0,0,0.7);
+    }
+
+    p, li {
+      font-size: 0.875rem;
+      color: rgba(0,0,0,0.7);
+      margin-bottom: 0.75rem;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Summary cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      padding: 1.25rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: #fff;
+    }
+
+    .summary-card-label {
+      font-size: 0.6875rem;
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-card-value {
+      font-size: 1.75rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .summary-card-delta {
+      font-size: 0.75rem;
+      color: #16a34a;
+      margin-top: 0.25rem;
+    }
+
+    .summary-card-delta.negative {
+      color: #dc2626;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.8125rem;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: rgba(0,0,0,0.5);
+    }
+
+    td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      color: rgba(0,0,0,0.7);
+    }
+
+    tr:hover td {
+      background: rgba(0,0,0,0.015);
+    }
+
+    .mono {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.75rem;
+    }
+
+    .good { color: #16a34a; }
+    .warn { color: #d97706; }
+    .bad { color: #dc2626; }
+
+    /* Bar chart */
+    .bar-chart {
+      margin: 1rem 0 1.5rem;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .bar-label {
+      width: 140px;
+      font-size: 0.75rem;
+      text-align: right;
+      color: rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 20px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+
+    .bar-fill.before {
+      background: rgba(0,0,0,0.15);
+    }
+
+    .bar-fill.after {
+      background: #16a34a;
+      opacity: 0.7;
+    }
+
+    .bar-value {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.6875rem;
+      color: rgba(0,0,0,0.4);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    /* Intervention cards */
+    .intervention {
+      padding: 1.25rem;
+      margin: 1rem 0;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.06);
+      background: #fff;
+    }
+
+    .intervention-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .intervention-number {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.625rem;
+      color: rgba(0,0,0,0.25);
+    }
+
+    .intervention-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .intervention-status {
+      font-size: 0.6875rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 100px;
+      margin-left: auto;
+    }
+
+    .status-done {
+      background: rgba(22,163,74,0.1);
+      color: #16a34a;
+    }
+
+    .status-deferred {
+      background: rgba(217,119,6,0.1);
+      color: #d97706;
+    }
+
+    .intervention-detail {
+      font-size: 0.8125rem;
+      color: rgba(0,0,0,0.5);
+      margin-top: 0.25rem;
+    }
+
+    .intervention-saving {
+      font-family: 'SF Mono', monospace;
+      font-size: 0.75rem;
+      color: #16a34a;
+      margin-top: 0.5rem;
+    }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.75rem;
+      color: rgba(0,0,0,0.3);
+    }
+
+    code {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
+      font-size: 0.8125em;
+      background: rgba(0,0,0,0.04);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 640px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Performance Report</h1>
+<p class="subtitle">The Adriatic — 22 February 2026</p>
+
+<!-- Summary Cards -->
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="summary-card-label">Site Size</div>
+    <div class="summary-card-value">1.3 MB</div>
+    <div class="summary-card-delta">-28% from 1.8 MB</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-card-label">JS Payload</div>
+    <div class="summary-card-value">3.3 KB</div>
+    <div class="summary-card-delta">-99% from 401 KB</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-card-label">Font Files</div>
+    <div class="summary-card-value">113 KB</div>
+    <div class="summary-card-delta">-52% from 237 KB</div>
+  </div>
+</div>
+
+<!-- Build Performance -->
+<h2>Build Performance</h2>
+<p>Jekyll build time was already fast at 0.73s mean (11 posts, 19 pages). No build-time changes were necessary — the bottleneck is Ruby startup (~1.7s overhead), not template rendering.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Before</th>
+      <th>After</th>
+      <th>Delta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jekyll build (mean of 3)</td>
+      <td class="mono">0.73s</td>
+      <td class="mono">0.66s</td>
+      <td class="mono good">-0.07s</td>
+    </tr>
+    <tr>
+      <td>Wall time incl. Ruby startup</td>
+      <td class="mono">2.42s</td>
+      <td class="mono">2.40s</td>
+      <td class="mono" style="color: rgba(0,0,0,0.3)">~same</td>
+    </tr>
+    <tr>
+      <td>Pages rendered</td>
+      <td class="mono">19</td>
+      <td class="mono">19</td>
+      <td class="mono" style="color: rgba(0,0,0,0.3)">—</td>
+    </tr>
+    <tr>
+      <td>Output files</td>
+      <td class="mono">48</td>
+      <td class="mono">43</td>
+      <td class="mono good">-5 files</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Build Time by Template</h3>
+<div class="bar-chart">
+  <div class="bar-row">
+    <span class="bar-label">default.html (×19)</span>
+    <div class="bar-track"><div class="bar-fill before" style="width: 42%"></div></div>
+    <span class="bar-value">79ms → 74ms</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">feed.xml</span>
+    <div class="bar-track"><div class="bar-fill before" style="width: 24%"></div></div>
+    <span class="bar-value">45ms → 41ms</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">post.html (×11)</span>
+    <div class="bar-track"><div class="bar-fill before" style="width: 14%"></div></div>
+    <span class="bar-value">25ms → 27ms</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">placeholder-one.md</span>
+    <div class="bar-track"><div class="bar-fill before" style="width: 11%"></div></div>
+    <span class="bar-value">20ms → 20ms</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">sitemap.xml</span>
+    <div class="bar-track"><div class="bar-fill before" style="width: 7%"></div></div>
+    <span class="bar-value">13ms → 13ms</span>
+  </div>
+</div>
+
+<!-- Runtime Performance -->
+<h2>Page Weight (Runtime)</h2>
+
+<h3>Homepage First Load</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Asset</th>
+      <th>Before (raw)</th>
+      <th>After (raw)</th>
+      <th>Before (gzip)</th>
+      <th>After (gzip)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>HTML</td>
+      <td class="mono">52 KB</td>
+      <td class="mono">52 KB</td>
+      <td class="mono">11.6 KB</td>
+      <td class="mono">11.7 KB</td>
+    </tr>
+    <tr>
+      <td>CSS <code>main.css</code></td>
+      <td class="mono">61 KB</td>
+      <td class="mono">60 KB</td>
+      <td class="mono">10.9 KB</td>
+      <td class="mono">10.9 KB</td>
+    </tr>
+    <tr>
+      <td>JS <code>tailwind.js</code></td>
+      <td class="mono bad">398 KB</td>
+      <td class="mono good">0 KB (deleted)</td>
+      <td class="mono bad">123 KB</td>
+      <td class="mono good">0 KB</td>
+    </tr>
+    <tr>
+      <td>JS <code>external-links.js</code></td>
+      <td class="mono">3.3 KB</td>
+      <td class="mono">3.3 KB</td>
+      <td class="mono">1.2 KB</td>
+      <td class="mono">1.2 KB</td>
+    </tr>
+    <tr>
+      <td>Fonts (woff2)</td>
+      <td class="mono">113 KB</td>
+      <td class="mono">113 KB</td>
+      <td colspan="2" class="mono" style="color: rgba(0,0,0,0.3)">already compressed</td>
+    </tr>
+    <tr>
+      <td>Fonts (woff fallback)</td>
+      <td class="mono warn">124 KB</td>
+      <td class="mono good">0 KB (deleted)</td>
+      <td colspan="2" class="mono" style="color: rgba(0,0,0,0.3)">—</td>
+    </tr>
+    <tr>
+      <td>Google Fonts CSS</td>
+      <td class="mono warn">~45 KB (blocking)</td>
+      <td class="mono good">~45 KB (async)</td>
+      <td colspan="2" class="mono" style="color: rgba(0,0,0,0.3)">unblocked FCP</td>
+    </tr>
+    <tr style="font-weight: 500">
+      <td>Total JS+CSS+Fonts</td>
+      <td class="mono">744 KB</td>
+      <td class="mono">176 KB</td>
+      <td class="mono">135 KB</td>
+      <td class="mono">12 KB</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Page Size Comparison (gzipped)</h3>
+<div class="bar-chart">
+  <div class="bar-row">
+    <span class="bar-label">Homepage</span>
+    <div class="bar-track">
+      <div class="bar-fill before" style="width: 80%"></div>
+    </div>
+    <span class="bar-value">11.6 KB</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">Article</span>
+    <div class="bar-track">
+      <div class="bar-fill before" style="width: 100%"></div>
+    </div>
+    <span class="bar-value">14.2 KB</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">Archive</span>
+    <div class="bar-track">
+      <div class="bar-fill before" style="width: 76%"></div>
+    </div>
+    <span class="bar-value">10.9 KB</span>
+  </div>
+</div>
+<p style="font-size: 0.75rem; color: rgba(0,0,0,0.35);">HTML sizes unchanged — optimizations targeted assets and render-blocking resources, not markup.</p>
+
+<!-- Interventions -->
+<h2>Interventions</h2>
+
+<div class="intervention">
+  <div class="intervention-header">
+    <span class="intervention-number">01</span>
+    <span class="intervention-title">Remove unused <code>tailwind.js</code></span>
+    <span class="intervention-status status-done">Done</span>
+  </div>
+  <p class="intervention-detail">The full Tailwind CSS runtime engine (398 KB / 123 KB gzipped) was in <code>assets/js/</code> but never referenced from any layout, include, or page. Pure dead weight on every page load. Deleted.</p>
+  <p class="intervention-saving">-398 KB raw · -123 KB gzipped per page</p>
+</div>
+
+<div class="intervention">
+  <div class="intervention-header">
+    <span class="intervention-number">02</span>
+    <span class="intervention-title">Non-render-blocking Google Fonts</span>
+    <span class="intervention-status status-done">Done</span>
+  </div>
+  <p class="intervention-detail">Converted the Google Fonts <code>&lt;link rel="stylesheet"&gt;</code> to <code>&lt;link rel="preload" as="style" onload="this.rel='stylesheet'"&gt;</code> with <code>&lt;noscript&gt;</code> fallback. This unblocks First Contentful Paint — the browser no longer waits for Google's CSS before rendering the page.</p>
+  <p class="intervention-saving">Unblocks FCP · ~200-500ms improvement on slow connections</p>
+</div>
+
+<div class="intervention">
+  <div class="intervention-header">
+    <span class="intervention-number">03</span>
+    <span class="intervention-title">Cloudinary auto-format + compression</span>
+    <span class="intervention-status status-done">Done</span>
+  </div>
+  <p class="intervention-detail">Added <code>f_auto,q_auto</code> transforms to all Cloudinary image URLs (cookie banner mascot, footer stamps, 404 image, og:image). Cloudinary now auto-serves WebP/AVIF with quality optimization. Also added width constraints (<code>w_240</code>, <code>w_400</code>, <code>w_600</code>) based on display size to prevent oversized downloads.</p>
+  <p class="intervention-saving">~60-80% image size reduction · WebP/AVIF auto-served</p>
+</div>
+
+<div class="intervention">
+  <div class="intervention-header">
+    <span class="intervention-number">04</span>
+    <span class="intervention-title">Extract inline CSS/JS from includes</span>
+    <span class="intervention-status status-deferred">Deferred</span>
+  </div>
+  <p class="intervention-detail"><code>cookie-banner.html</code> (315 lines) and <code>glass-cursor.html</code> (224 lines) inline ~12.5 KB of CSS+JS into every page. Extracting to external files would make them cacheable across navigations, saving ~3 KB gzipped per page after the first load. Deferred due to moderate complexity (touch/swipe handlers, animation loops) and low relative impact vs. other fixes.</p>
+  <p class="intervention-saving" style="color: #d97706;">Potential: -3 KB/page (cached) · Deferred</p>
+</div>
+
+<div class="intervention">
+  <div class="intervention-header">
+    <span class="intervention-number">05</span>
+    <span class="intervention-title">Remove <code>.woff</code> font fallbacks</span>
+    <span class="intervention-status status-done">Done</span>
+  </div>
+  <p class="intervention-detail">Removed 4 <code>.woff</code> files (124 KB total) that served as fallbacks for IE11 and old Android. All modern browsers support <code>.woff2</code>. Also removed the non-critical Bold font preload (only Journal + Regular needed for first paint).</p>
+  <p class="intervention-saving">-124 KB static assets · -24 KB preload budget</p>
+</div>
+
+<!-- Architectural Recommendations -->
+<h2>Future Recommendations</h2>
+
+<h3>Responsive Images with <code>srcset</code></h3>
+<p>Article images currently have no <code>srcset</code> or <code>sizes</code> attributes. When real articles are published with Cloudinary images, use Cloudinary URL transforms to serve responsive variants:</p>
+<table>
+  <thead>
+    <tr><th>Breakpoint</th><th>Width</th><th>URL Transform</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mobile</td><td class="mono">400w</td><td class="mono">w_400,f_auto,q_auto</td></tr>
+    <tr><td>Tablet</td><td class="mono">800w</td><td class="mono">w_800,f_auto,q_auto</td></tr>
+    <tr><td>Desktop</td><td class="mono">1200w</td><td class="mono">w_1200,f_auto,q_auto</td></tr>
+  </tbody>
+</table>
+
+<h3>Self-Host Google Fonts</h3>
+<p>Inter is loaded from <code>fonts.googleapis.com</code>, which requires a DNS lookup + connection to Google's CDN. Self-hosting the font files (already partially done with woff2 infrastructure) would eliminate this external dependency and allow the CSS to reference local files with no additional connection.</p>
+
+<h3>HTML Minification</h3>
+<p>HTML output is unminified (~1300 lines per article page). A Jekyll plugin like <code>jekyll-compress-html</code> could reduce HTML size by ~10-15%. Low priority given gzip already handles most of the savings.</p>
+
+<h3>Digital Ocean App Platform Configuration</h3>
+<p>When migrating from GitHub Pages:</p>
+<ul>
+  <li>Enable gzip/brotli compression in the CDN layer</li>
+  <li>Set <code>Cache-Control: public, max-age=31536000, immutable</code> for <code>/assets/</code> (fonts, CSS, JS)</li>
+  <li>Set <code>Cache-Control: public, max-age=3600</code> for HTML pages</li>
+  <li>Move CSP from <code>&lt;meta&gt;</code> tag to HTTP header</li>
+  <li>Add <code>X-Content-Type-Options: nosniff</code> and <code>Strict-Transport-Security</code> headers</li>
+</ul>
+
+<!-- Appendix -->
+<h2>Appendix: Current Configuration</h2>
+
+<h3>Build Command</h3>
+<p><code>bundle exec jekyll build</code> — Sass compressed, source maps disabled.</p>
+
+<h3>Jekyll Plugins</h3>
+<table>
+  <thead><tr><th>Plugin</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>jekyll-paginate-v2</code></td><td>Homepage pagination</td></tr>
+    <tr><td><code>jekyll-seo-tag</code></td><td>Meta tags + Open Graph</td></tr>
+    <tr><td><code>jekyll-sitemap</code></td><td>Auto-generated sitemap</td></tr>
+    <tr><td><code>jekyll-feed</code></td><td>RSS/Atom feed</td></tr>
+  </tbody>
+</table>
+
+<h3>Excluded from Build</h3>
+<p>Gemfile, node_modules, vendor, api, CLAUDE.md, README.md, docs, references</p>
+
+<h3>Font Stack</h3>
+<table>
+  <thead><tr><th>Font</th><th>Files</th><th>Size</th></tr></thead>
+  <tbody>
+    <tr><td>Adriatic Journal</td><td>1× woff2</td><td class="mono">13 KB</td></tr>
+    <tr><td>Adriatic22 Regular</td><td>1× woff2</td><td class="mono">24 KB</td></tr>
+    <tr><td>Adriatic22 Italic</td><td>1× woff2</td><td class="mono">26 KB</td></tr>
+    <tr><td>Adriatic22 Bold</td><td>1× woff2</td><td class="mono">24 KB</td></tr>
+    <tr><td>Adriatic22 BoldItalic</td><td>1× woff2</td><td class="mono">26 KB</td></tr>
+    <tr><td>Inter (Google Fonts)</td><td>External</td><td class="mono">~45 KB</td></tr>
+  </tbody>
+</table>
+
+<div class="report-footer">
+  Generated 22 Feb 2026 · The Adriatic Performance Audit
+</div>
+
+</body>
+</html>

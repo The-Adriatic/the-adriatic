@@ -3,17 +3,28 @@
 // =============================================
 
 .secondary-articles {
+  position: relative;
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 1.5rem 0;
+
+  // Timeline line (masked by icon-col backgrounds)
+  &::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    left: calc(1.5rem + 18px);
+    width: 1px;
+    background: rgba(0, 0, 0, 0.08);
+  }
 }
 
 .horizontal-card {
   display: grid;
-  grid-template-columns: minmax(200px, 280px) 1fr;
-  gap: 2rem;
+  grid-template-columns: 36px minmax(200px, 280px) 1fr;
+  gap: 1.5rem;
   padding: 20px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
   text-decoration: none;
   color: inherit;
   align-items: start;
@@ -22,10 +33,6 @@
     &:hover .horizontal-card-title {
       color: var(--adriatic-accent);
     }
-  }
-
-  &:last-child {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
 
 }
@@ -90,60 +97,30 @@
   color: var(--adriatic-text-muted);
 }
 
-// =============================================
-//   Secondary Grid - 3-column on desktop
-// =============================================
-
-.secondary-grid {
+// Icon column (timeline node)
+.icon-col {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  padding: 2rem 0 0;
-  margin-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-
-  // Grid cards have vertical layout on desktop
-  .grid-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding: 0;
-    border-top: none;
-    position: relative;
-
-    // Vertical divider between cards
-    &:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: -0.75rem;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background-color: rgba(0, 0, 0, 0.06);
-    }
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .horizontal-card-image {
-      margin-left: 0;
-      aspect-ratio: 4/3;
-    }
-
-    .horizontal-card-title {
-      font-size: 1.5rem;
-      font-weight: 400;
-      line-height: 1.1;
-      margin-top: 0.5rem;
-    }
-  }
+  place-items: center;
+  position: relative;
+  width: 36px;
+  min-height: 36px;
+  background: #fdfdfc;
+  flex-shrink: 0;
 }
+
+.post-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-col--politics { color: #c17a6e; }
+.icon-col--business { color: #6e9ec1; }
+.icon-col--living { color: #8ab06e; }
 
 // Responsive
 @media (max-width: 1024px) {
   .horizontal-card {
-    grid-template-columns: minmax(140px, 200px) 1fr;
+    grid-template-columns: 36px minmax(140px, 200px) 1fr;
     gap: 1.5rem;
   }
 
@@ -156,111 +133,65 @@
   }
 }
 
+// =============================================
+//   Mobile: Compact List
+// =============================================
 @media (max-width: 768px) {
   .secondary-articles {
     padding: 0 0 1.5rem;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .icon-col {
+    display: none;
   }
 
   .horizontal-card {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.5rem 0;
+    display: flex;
+    gap: 10px;
+    padding: 9px 0;
+    border: none;
+    align-items: flex-start;
   }
 
+  // Small rectangular thumbnail
   .horizontal-card-image {
-    margin-left: 0;
-    max-width: 100%;
-    aspect-ratio: 16/9;
-    max-height: 200px;
+    width: 112px;
+    height: 80px;
+    min-width: 112px;
+    max-width: 112px;
+    max-height: 80px;
+    aspect-ratio: auto;
+    border-radius: 0;
+    box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  }
+
+  .horizontal-card-text {
+    flex: 1;
+    min-width: 0;
+    gap: 0;
+  }
+
+  .horizontal-card-date {
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.35);
   }
 
   .horizontal-card-title {
+    font-family: var(--adriatic-font-display);
     font-size: 1.25rem;
-    line-height: 1.25;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 1.15;
+    margin: 0;
   }
 
-  .horizontal-card-excerpt {
-    font-size: 0.8rem;
-  }
-
+  // Hide excerpt and author on mobile
+  .horizontal-card-excerpt,
   .horizontal-card-author {
-    font-size: 0.8rem;
-  }
-
-  // Last horizontal card before grid needs bottom border
-  .horizontal-card:not(.grid-card):last-of-type {
-    border-bottom: none;
-  }
-
-  // Flatten grid to single column on mobile
-  .secondary-grid {
-    display: block;
-    padding: 0;
-    margin-top: 0;
-    border-top: none;
-
-    .grid-card {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1.5rem 0;
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-
-      // Remove vertical dividers on mobile
-      &:not(:last-child)::after {
-        display: none;
-      }
-
-      &:last-child {
-        border-bottom: none;
-      }
-
-      .horizontal-card-image {
-        aspect-ratio: 16/9;
-        max-height: 200px;
-      }
-
-      .horizontal-card-title {
-        font-size: 1.25rem;
-        font-weight: 400;
-        line-height: 1.25;
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .horizontal-card {
-    padding: 1.25rem 0;
-    gap: 0.75rem;
-  }
-
-  .horizontal-card-image {
-    max-height: 180px;
-  }
-
-  .horizontal-card-title {
-    font-size: 1.125rem;
-  }
-
-  .horizontal-card-date,
-  .horizontal-card-author,
-  .horizontal-card-excerpt {
-    font-size: 0.75rem;
-  }
-
-  .secondary-grid .grid-card {
-    padding: 1.25rem 0;
-    gap: 0.75rem;
-
-    .horizontal-card-image {
-      aspect-ratio: 16/9;
-      max-height: 180px;
-    }
-
-    .horizontal-card-title {
-      font-size: 1.125rem;
-    }
+    display: none;
   }
 }

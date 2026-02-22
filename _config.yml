@@ -51,7 +51,7 @@ defaults:
   - scope:
       path: ""
     values:
-      image: https://res.cloudinary.com/dvyhebi2q/image/upload/v1769293303/the-adriatic/site/the-adriatic.png
+      image: https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_1200/v1769293303/the-adriatic/site/the-adriatic.png
   - scope:
       path: ""
       type: "posts"

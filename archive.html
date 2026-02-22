@@ -49,7 +49,7 @@ pagination:
       <a href="{{ post.url | relative_url }}">
         <div class="archive-date">{{ post.date | date: "%-d %B %Y" }}</div>
         <h2 class="archive-title">{{ post.title }}</h2>
-        <p class="archive-excerpt">{{ post.description | default: post.excerpt | strip_html | truncate: 160 }}</p>
+        <p class="archive-excerpt">{{ post.description | default: post.excerpt | strip_html }}</p>
       </a>
     </li>
     {% endfor %}

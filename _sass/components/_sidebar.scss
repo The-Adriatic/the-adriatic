@@ -220,25 +220,36 @@
 // =============================================
 
 .mobile-menu {
-  display: none; // Hidden by default, shown via JS
+  display: none; // Hidden on desktop
   position: fixed;
-  top: var(--navbar-height); // Uses CSS variable from _variables.scss
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 999; // Below navbar (1000)
-  background: var(--adriatic-bg);
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-top: calc(var(--navbar-height) + 2rem);
+  pointer-events: none;
 
   &.is-open {
-    display: flex;
+    pointer-events: auto;
   }
 }
 
+// Background for circular reveal animation
+.mobile-menu-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--adriatic-bg);
+  opacity: 0;
+}
+
 .mobile-menu-nav {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -250,11 +261,7 @@
     font-weight: 400;
     color: var(--adriatic-text);
     text-decoration: none;
-    transition: opacity 0.2s ease;
-
-    &:hover {
-      opacity: 0.6;
-    }
+    opacity: 0; // Hidden until JS animates in
 
     &.active {
       font-weight: 600;
@@ -262,9 +269,21 @@
   }
 }
 
-.mobile-menu-logo {
+// Footer wrapper — animated as a group
+.mobile-menu-footer {
   position: absolute;
-  bottom: 5rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
+  opacity: 0; // Hidden until JS animates in
+}
+
+.mobile-menu-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -275,28 +294,28 @@
   letter-spacing: -0.02em;
   line-height: 0.85;
   color: var(--adriatic-accent);
+  margin-bottom: 1.5rem;
 }
 
 .mobile-menu-social {
-  position: absolute;
-  bottom: 2.5rem;
   display: flex;
   gap: 1.5rem;
+  margin-bottom: 1rem;
 
   a {
     color: var(--adriatic-text);
     opacity: 0.6;
     transition: opacity 0.2s ease;
 
-    &:hover {
-      opacity: 1;
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
 
 .mobile-menu-made {
-  position: absolute;
-  bottom: 1rem;
   font-family: var(--adriatic-font-sans);
   font-size: 11px;
   font-weight: 300;

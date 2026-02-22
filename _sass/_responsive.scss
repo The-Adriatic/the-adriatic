@@ -31,6 +31,11 @@
 
 // Mobile (768px)
 @media (max-width: 768px) {
+  // Override navbar height for thinner mobile bar
+  :root {
+    --navbar-height: 48px;
+  }
+
   // Mobile navbar - edge to edge with glassmorphism
   .sidebar {
     position: fixed;
@@ -39,7 +44,7 @@
     right: 0;
     width: 100%;
     margin: 0;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0;
     z-index: 1000;
 
@@ -59,6 +64,11 @@
     display: flex;
   }
 
+  // Show mobile menu overlay (invisible until animated by JS)
+  .mobile-menu {
+    display: flex;
+  }
+
   // Keep full subscribe button on mobile
   .subscribe-btn {
     padding: 0.5rem 0.875rem;
@@ -67,7 +77,7 @@
 
   // Add top padding for fixed navbar
   .adriatic-main {
-    padding-top: 4rem;
+    padding-top: 3.5rem;
   }
 
   // Masthead: swap to stacked logo on mobile

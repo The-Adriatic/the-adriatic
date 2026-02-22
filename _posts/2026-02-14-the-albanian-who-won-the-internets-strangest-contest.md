@@ -3,7 +3,7 @@ layout: post
 title: "The Albanian who won the internet's strangest contest"
 date: 2026-02-14
 author: "Andraž Tavčar"
-category: Culture
+category: Living
 kicker: "Internet Cvltvre"
 description: "How a seven-second gym-bro clip at an Arizona frat party accidentally became Albania's most effective piece of public diplomacy."
 image:

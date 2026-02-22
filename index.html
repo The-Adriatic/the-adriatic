@@ -86,13 +86,42 @@ title: The Adriatic
   <button>Get Updates</button>
 </div>
 
+<!-- Category Pills -->
+<nav class="category-pills" aria-label="Filter by category">
+  <button class="pill pill--active" data-filter="all">
+    <svg class="pill-icon pill-icon--gray" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+    All
+  </button>
+  <button class="pill" data-filter="politics">
+    <svg class="pill-icon pill-icon--red" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+    Politics
+  </button>
+  <button class="pill" data-filter="business">
+    <svg class="pill-icon pill-icon--blue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+    Business
+  </button>
+  <button class="pill" data-filter="living">
+    <svg class="pill-icon pill-icon--green" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+    Living
+  </button>
+</nav>
+
 <!-- Secondary Articles -->
 <section class="secondary-articles">
   {% assign visible_posts = site.posts | where_exp: "post", "post.hidden != true" %}
 
-  <!-- Horizontal cards (posts 2-5) -->
-  {% for post in visible_posts offset:1 limit:4 %}
-  <a href="{{ post.url | relative_url }}" class="horizontal-card">
+  {% for post in visible_posts offset:1 limit:15 %}
+  {% assign cat = post.category | downcase %}
+  <a href="{{ post.url | relative_url }}" class="horizontal-card" data-category="{{ cat }}">
+    <div class="icon-col icon-col--{{ cat }}">
+      {% if cat == "politics" %}
+      <svg class="post-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+      {% elsif cat == "business" %}
+      <svg class="post-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+      {% else %}
+      <svg class="post-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+      {% endif %}
+    </div>
     <div class="horizontal-card-image">
       {% if post.image %}
       <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
@@ -101,34 +130,13 @@ title: The Adriatic
       {% endif %}
     </div>
     <div class="horizontal-card-text">
-      <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
+      <div class="horizontal-card-date"><span class="date-day">{{ post.date | date: "%-d" }}</span> <span class="date-month">{{ post.date | date: "%b" }}</span></div>
       <h3 class="horizontal-card-title">{{ post.title }}</h3>
       {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>{% endif %}
       <span class="horizontal-card-author">By {{ post.author }}</span>
     </div>
   </a>
   {% endfor %}
-
-  <!-- Grid cards (posts 6-8) - 3-column on desktop, stacked on mobile -->
-  <div class="secondary-grid">
-    {% for post in visible_posts offset:5 limit:3 %}
-    <a href="{{ post.url | relative_url }}" class="horizontal-card grid-card">
-      <div class="horizontal-card-image">
-        {% if post.image %}
-        <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-        {% else %}
-        <div class="placeholder"></div>
-        {% endif %}
-      </div>
-      <div class="horizontal-card-text">
-        <div class="horizontal-card-date">{{ post.date | date: "%-d %b" }}</div>
-        <h3 class="horizontal-card-title">{{ post.title }}</h3>
-        {% if post.description %}<p class="horizontal-card-excerpt">{{ post.description }}</p>{% elsif post.excerpt %}<p class="horizontal-card-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>{% endif %}
-        <span class="horizontal-card-author">By {{ post.author }}</span>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
 </section>
 
 <!-- View More Button -->
@@ -150,5 +158,42 @@ title: The Adriatic
   border: 0;
 }
 </style>
+
+<script>
+(function() {
+  var MAX_VISIBLE = 5;
+  var pills = document.querySelectorAll('.pill[data-filter]');
+  var cards = document.querySelectorAll('.horizontal-card[data-category]');
+
+  function filterCards(filter, animate) {
+    var shown = 0;
+    cards.forEach(function(card) {
+      var matches = filter === 'all' || card.getAttribute('data-category') === filter;
+      if (matches && shown < MAX_VISIBLE) {
+        card.style.display = '';
+        if (animate) {
+          card.style.animation = 'none';
+          card.offsetHeight;
+          card.style.animation = 'fadeInUp 0.3s ease-out ' + (shown * 0.06) + 's both';
+        }
+        shown++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Initial state: show first 5 (no animation — page already fades in)
+  filterCards('all', false);
+
+  pills.forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      pills.forEach(function(p) { p.classList.remove('pill--active'); });
+      this.classList.add('pill--active');
+      filterCards(this.getAttribute('data-filter'), true);
+    });
+  });
+})();
+</script>
 
 
