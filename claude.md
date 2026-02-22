@@ -475,6 +475,7 @@ CSP meta tag in `default.html` restricts script/style/font/image/connect sources
 - [ ] `events.html`: Create events page?
 - [ ] Test Windows rendering on BrowserStack and verify header fix
 - [ ] Convert masthead title to SVG for consistent cross-platform rendering
+- [ ] **Homepage article hover/touch** — Granola-style interaction: rose-tinted background highlight on desktop hover (`@media (hover: hover)`), slightly brownish/warm linger highlight on touch (visible on touch-hold without pressing, not `:active`)
 - [ ] Add rate limiting to likes API (Cloudflare dashboard or Worker-level)
 - [ ] Move CSP to HTTP header when migrating to DigitalOcean App Platform
 - [ ] Self-host Google Fonts for SRI + performance (already have some woff2 files)
