@@ -29,8 +29,8 @@ We'll have real reporting, essays, and analysis here soon. Stories from across t
 
 ## Highlighted links
 
-We use highlighted links <a href="{{ '/newsletter' | relative_url }}" class="plain"><mark class="rose">like this</mark></a>. The effect is meant to look like someone ran a highlighter over the text - a subtle way to draw attention without shouting. It keeps attribution and emphasis feeling human rather than mechanical.
+We use highlighted links <a href="{{ '/newsletter' | relative_url }}" class="plain"><mark>like this</mark></a>. The effect is meant to look like someone ran a highlighter over the text - a subtle way to draw attention without shouting. It keeps attribution and emphasis feeling human rather than mechanical.
 
-Four colours are available: <mark>blue</mark> for general emphasis, <mark class="yellow">yellow</mark> for neutral callouts, <mark class="green">green</mark> for positive notes, and <mark class="rose">rose</mark> for links and key points. Rose is our default for links - it pairs with the accent colour without being too loud.
+We use <mark>rose</mark> for highlighting - it pairs with the accent colour without being too loud.
 
-Until then, thanks for poking around. If you'd like to know when we properly launch, sign up for <a href="{{ '/newsletter' | relative_url }}" class="plain"><mark class="rose">our newsletter</mark></a>.
+Until then, thanks for poking around. If you'd like to know when we properly launch, sign up for <a href="{{ '/newsletter' | relative_url }}" class="plain"><mark>our newsletter</mark></a>.

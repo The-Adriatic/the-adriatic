@@ -56,47 +56,14 @@ mark {
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 
-  // Default: blue
+  // Rose highlight
   background: linear-gradient(
     89deg,
-    rgba(0, 170, 255, 0.5),
-    rgba(0, 170, 255, 0.1) 4%,
-    rgba(0, 170, 255, 0.3) 96%,
-    rgba(0, 170, 255, 0.7)
+    rgba(255, 150, 170, 0.5),
+    rgba(255, 150, 170, 0.1) 4%,
+    rgba(255, 150, 170, 0.3) 96%,
+    rgba(255, 150, 170, 0.7)
   );
-
-  // Yellow (fluorescent)
-  &.yellow {
-    background: linear-gradient(
-      89deg,
-      rgba(255, 240, 0, 0.8),
-      rgba(255, 240, 0, 0.4) 4%,
-      rgba(255, 240, 0, 0.6) 96%,
-      rgba(255, 240, 0, 0.9)
-    );
-  }
-
-  // Green
-  &.green {
-    background: linear-gradient(
-      89deg,
-      rgba(100, 200, 100, 0.5),
-      rgba(100, 200, 100, 0.1) 4%,
-      rgba(100, 200, 100, 0.3) 96%,
-      rgba(100, 200, 100, 0.7)
-    );
-  }
-
-  // Light rose
-  &.rose {
-    background: linear-gradient(
-      89deg,
-      rgba(255, 150, 170, 0.5),
-      rgba(255, 150, 170, 0.1) 4%,
-      rgba(255, 150, 170, 0.3) 96%,
-      rgba(255, 150, 170, 0.7)
-    );
-  }
 }
 
 // Text selection highlight

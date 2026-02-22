@@ -115,7 +115,7 @@
   margin: 0 auto;
   padding: 0 0 2rem;
   font-family: var(--adriatic-font-body);
-  font-size: 1.5rem;
+  font-size: 1.375rem;
   line-height: 1.25;
   color: var(--adriatic-text);
 
@@ -346,7 +346,7 @@
   padding: 4px 8px;
   border-radius: 4px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
-  font-size: 0.6875rem;
+  font-size: 0.875rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
@@ -418,7 +418,7 @@
   padding: 5px 10px 5px 8px;
   border-radius: 6px;
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.28);
   cursor: pointer;
@@ -495,21 +495,22 @@
 
 @keyframes heartPop {
   0%   { transform: scale(1); }
-  30%  { transform: scale(1.4); }
-  60%  { transform: scale(0.9); }
+  20%  { transform: scale(1.8); }
+  50%  { transform: scale(0.85); }
+  75%  { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
 
 @keyframes likeBump {
   0%   { transform: scale(1); }
-  40%  { transform: scale(0.92); }
-  70%  { transform: scale(1.04); }
+  40%  { transform: scale(0.95); }
+  70%  { transform: scale(1.03); }
   100% { transform: scale(1); }
 }
 
 @keyframes countBump {
   0%   { transform: translateY(0); opacity: 1; }
-  30%  { transform: translateY(-3px); opacity: 0.6; }
+  25%  { transform: translateY(-5px); opacity: 0.4; }
   100% { transform: translateY(0); opacity: 1; }
 }
 
