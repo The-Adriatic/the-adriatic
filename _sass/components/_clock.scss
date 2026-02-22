@@ -1,24 +1,83 @@
 // =============================================
-//   Time Greeting
+//   Analog Clock + Greeting (Seconds Arc)
 // =============================================
 
 .adriatic-greeting {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 8px;
   padding: 1rem 0;
-  gap: 0.25rem;
 }
 
-.greeting-time,
+.greeting-clock {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+// Clock hands
+.clock-hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 1px;
+}
+
+.clock-hand-hour {
+  width: 2px;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.clock-hand-minute {
+  width: 1px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+// Center dot
+.clock-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+// SVG seconds arc
+.greeting-arc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 72px;
+
+  circle {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.04);
+    stroke-width: 1;
+  }
+
+  .arc-progress {
+    fill: none;
+    stroke: var(--adriatic-accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    opacity: 0.4;
+    transition: stroke-dashoffset 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+// Greeting text
 .greeting-text {
   font-family: var(--adriatic-font-sans);
   font-size: 0.8rem;
   color: #999;
   text-align: center;
-}
-
-.greeting-text {
-  padding-top: 0.25rem;
 }

@@ -1,89 +1,69 @@
-<!-- Time Greeting -->
+<!-- Analog Clock + Greeting -->
 <div class="adriatic-greeting" id="adriatic-greeting">
-  <span class="greeting-time"></span>
+  <div class="greeting-clock" id="greeting-clock">
+    <svg class="greeting-arc" viewBox="0 0 72 72">
+      <circle cx="36" cy="36" r="34" />
+      <circle class="arc-progress" id="clock-arc" cx="36" cy="36" r="34"
+        stroke-dasharray="213.6"
+        stroke-dashoffset="213.6"
+        transform="rotate(-90 36 36)" />
+    </svg>
+    <div class="clock-hand clock-hand-hour" id="clock-hand-hour"></div>
+    <div class="clock-hand clock-hand-minute" id="clock-hand-minute"></div>
+    <div class="clock-center"></div>
+  </div>
   <span class="greeting-text"></span>
 </div>
 
 <script>
 (function() {
   function getGreeting(hours) {
-    if (hours >= 5 && hours < 9) {
-      return {
-        period: 'early-morning',
-        greeting: 'Good morning',
-        message: "here's something to get you started"
-      };
-    } else if (hours >= 9 && hours < 12) {
-      return {
-        period: 'late-morning',
-        greeting: 'Good morning',
-        message: "here's something to go with your coffee"
-      };
-    } else if (hours >= 12 && hours < 14) {
-      return {
-        period: 'lunch',
-        greeting: 'Good afternoon',
-        message: "here's something for your break"
-      };
-    } else if (hours >= 14 && hours < 17) {
-      return {
-        period: 'afternoon',
-        greeting: 'Good afternoon',
-        message: "here's something for the home stretch"
-      };
-    } else if (hours >= 17 && hours < 19) {
-      return {
-        period: 'early-evening',
-        greeting: 'Good evening',
-        message: "here's something for the golden hour"
-      };
-    } else if (hours >= 19 && hours < 21) {
-      return {
-        period: 'evening',
-        greeting: 'Good evening',
-        message: "here's something to wind down with"
-      };
-    } else {
-      return {
-        period: 'night',
-        greeting: 'Good night',
-        message: "here's something for the late hours"
-      };
-    }
+    if (hours >= 5 && hours < 9) return { greeting: 'Good morning', message: "here's something to get you started" };
+    if (hours >= 9 && hours < 12) return { greeting: 'Good morning', message: "here's something to go with your coffee" };
+    if (hours >= 12 && hours < 14) return { greeting: 'Good afternoon', message: "here's something for your break" };
+    if (hours >= 14 && hours < 17) return { greeting: 'Good afternoon', message: "here's something for the home stretch" };
+    if (hours >= 17 && hours < 19) return { greeting: 'Good evening', message: "here's something for the golden hour" };
+    if (hours >= 19 && hours < 21) return { greeting: 'Good evening', message: "here's something to wind down with" };
+    return { greeting: 'Good night', message: "here's something for the late hours" };
   }
 
-  function formatTime(hours, minutes) {
-    const m = minutes.toString().padStart(2, '0');
-    return `${hours}:${m}`;
+  var arcCircumference = 2 * Math.PI * 34;
+
+  function tick() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var s = now.getSeconds();
+    var ms = now.getMilliseconds();
+    var smoothS = s + ms / 1000;
+
+    // Hands
+    var hourDeg = (h % 12) * 30 + m * 0.5 + s * (0.5 / 60);
+    var minDeg = m * 6 + s * 0.1;
+    var hourEl = document.getElementById('clock-hand-hour');
+    var minEl = document.getElementById('clock-hand-minute');
+    if (hourEl) hourEl.style.transform = 'translateX(-50%) rotate(' + hourDeg + 'deg)';
+    if (minEl) minEl.style.transform = 'translateX(-50%) rotate(' + minDeg + 'deg)';
+
+    // Arc
+    var arcOffset = arcCircumference - (smoothS / 60) * arcCircumference;
+    var arcEl = document.getElementById('clock-arc');
+    if (arcEl) arcEl.setAttribute('stroke-dashoffset', arcOffset);
+
+    // Greeting text
+    var info = getGreeting(h);
+    var greetingEl = document.querySelector('.greeting-text');
+    if (greetingEl) greetingEl.textContent = info.greeting + ', ' + info.message + '.';
   }
 
-  function updateGreeting() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    const timeStr = formatTime(hours, minutes);
-    const { greeting, message } = getGreeting(hours);
-
-    const timeEl = document.querySelector('.greeting-time');
-    const greetingEl = document.querySelector('.greeting-text');
-    if (timeEl) {
-      timeEl.innerHTML = `It's ${timeStr} in Ljubljana.`;
-    }
-    if (greetingEl) {
-      greetingEl.innerHTML = `${greeting}, ${message}.`;
-    }
-  }
-
-  // Initial update
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      updateGreeting();
-      setInterval(updateGreeting, 60000); // Update every minute
+      tick();
+      setInterval(tick, 50);
     });
   } else {
-    updateGreeting();
-    setInterval(updateGreeting, 60000);
+    tick();
+    setInterval(tick, 50);
   }
 })();
 </script>

@@ -168,6 +168,11 @@
     margin-bottom: 1.25rem;
   }
 
+  // Hide clock and greeting on mobile
+  .adriatic-greeting {
+    display: none;
+  }
+
   // Masthead adjustments for mobile
   .adriatic-header {
     padding: 1.5rem 1rem;
