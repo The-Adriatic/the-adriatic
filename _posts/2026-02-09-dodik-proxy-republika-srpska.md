@@ -5,7 +5,9 @@ date: 2026-02-09
 author: "Andraž Tavčar"
 category: Politics
 kicker: "Dayton at 31"
-image_caption: "Placeholder image. We use pixel art for placeholders - it's the one style AI can generate cleanly without the telltale uncanny artifacts. Honest about its origins, but still pleasant to look at."
+image: https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_1200/v1771858468/the-adriatic/2026/02/2026-02-09-dodik-proxy-republika-srpska/image-chess.webp
+image_caption: "The proxy's gambit."
+image_credit: "ChatGPT"
 description: "Siniša Karan scraped through the presidential rerun by fewer than 11,000 votes - a margin that reveals as much about the erosion of Dodik's machine as its survival."
 ---
 
