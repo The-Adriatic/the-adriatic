@@ -70,7 +70,9 @@ layout: default
   </div>
 </header>
 
-{% if page.image %}
+{% if page.hero_include %}
+{% include {{ page.hero_include }} %}
+{% elsif page.image %}
 <div class="post-hero-image">
   <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" loading="eager">
 </div>

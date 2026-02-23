@@ -414,6 +414,25 @@ https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_800/v123456/th
 
 Use `loading="eager"` for above-the-fold hero images, `loading="lazy"` for everything else.
 
+**Cloudinary folder structure:**
+```
+the-adriatic/
+├── {year}/{month}/{date-slug}/   # Article images (hero, inline)
+├── magazine/                      # Magazine page assets
+└── site/                          # Site-wide assets (logo, stamps, mascot, 404, og:image)
+```
+
+**Article image upload convention:**
+1. Navigate to `the-adriatic/{year}/{month}/` (e.g. `the-adriatic/2026/02/`)
+2. Create a folder matching the full post filename (e.g. `2026-02-23-eu-biomethane-biogas`)
+3. Upload the hero image inside that folder — descriptive, lowercase filename (e.g. `cow-img.webp`)
+4. Copy the URL and paste into the post's `image:` frontmatter field, adding `f_auto,q_auto,w_1200` transforms
+
+**Full article image URL example:**
+```
+https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_1200/v1771850637/the-adriatic/2026/02/2026-02-23-eu-biomethane-biogas/cow-img.webp
+```
+
 ### Windows/Cross-Platform Compatibility
 
 **Problem:** Header masthead (`.adriatic-title`) overlaps with `.header-meta` on Windows due to ClearType font rendering differences. Windows calculates font bounding boxes differently than macOS.

@@ -6,9 +6,8 @@ author: "Andraž Tavčar"
 category: Living
 kicker: "Internet Cvltvre"
 description: "How a seven-second gym-bro clip at an Arizona frat party accidentally became Albania's most effective piece of public diplomacy."
-image:
-image_caption: "Placeholder image. We use pixel art for placeholders - it's the one style AI can generate cleanly without the telltale uncanny artifacts. Honest about its origins, but still pleasant to look at."
-image_credit:
+image: https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_1200/v1771854855/the-adriatic/2026/02/2026-02-14-the-albanian-who-won-the-internets-strangest-contest/image-hammer.webp
+hero_include: decoder-ring.html
 ---
 
 Varis Gilaj, a 20-something fitness influencer of Albanian descent, became the most talked-about man on English-language social media this week after a seven-second clip showed him towering over a Kick streamer at an Arizona State University (ASU) frat party - a moment the internet has declared the most consequential act of physical domination since David met Goliath.

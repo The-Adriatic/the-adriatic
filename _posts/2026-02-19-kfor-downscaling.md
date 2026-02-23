@@ -5,9 +5,9 @@ date: 2026-02-19
 author: "Andraž Tavčar"
 category: Politics
 kicker: "NATO 3.0"
-image:
-image_caption: "Placeholder image. We use pixel art for placeholders - it's the one style AI can generate cleanly without the telltale uncanny artifacts. Honest about its origins, but still pleasant to look at."
-image_credit:
+image: https://res.cloudinary.com/dvyhebi2q/image/upload/f_auto,q_auto,w_1200/v1771851541/the-adriatic/2026/02/2026-02-19-kfor-downscaling/image-nato_1.webp
+image_caption: "Twenty-seven years and counting."
+image_credit: "ChatGPT"
 description: "The Trump administration is pressing NATO to scale back KFOR and end its Iraq mission - part of a broader drive to strip the alliance of commitments Washington now regards as legacy baggage."
 ---
 

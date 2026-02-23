@@ -1,12 +1,19 @@
 <!-- Analog Clock + Greeting -->
 <div class="adriatic-greeting" id="adriatic-greeting">
   <div class="greeting-clock" id="greeting-clock">
-    <svg class="greeting-arc" viewBox="0 0 72 72">
-      <circle cx="36" cy="36" r="34" />
-      <circle class="arc-progress" id="clock-arc" cx="36" cy="36" r="34"
-        stroke-dasharray="213.6"
-        stroke-dashoffset="213.6"
-        transform="rotate(-90 36 36)" />
+    <svg class="clock-ticks" viewBox="0 0 72 72">
+      <line x1="36" y1="4" x2="36" y2="10" transform="rotate(0 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(30 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(60 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="10" transform="rotate(90 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(120 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(150 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="10" transform="rotate(180 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(210 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(240 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="10" transform="rotate(270 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(300 36 36)" />
+      <line x1="36" y1="4" x2="36" y2="8" transform="rotate(330 36 36)" />
     </svg>
     <div class="clock-hand clock-hand-hour" id="clock-hand-hour"></div>
     <div class="clock-hand clock-hand-minute" id="clock-hand-minute"></div>
@@ -27,15 +34,11 @@
     return { greeting: 'Good night', message: "here's something for the late hours" };
   }
 
-  var arcCircumference = 2 * Math.PI * 34;
-
   function tick() {
     var now = new Date();
     var h = now.getHours();
     var m = now.getMinutes();
     var s = now.getSeconds();
-    var ms = now.getMilliseconds();
-    var smoothS = s + ms / 1000;
 
     // Hands
     var hourDeg = (h % 12) * 30 + m * 0.5 + s * (0.5 / 60);
@@ -44,11 +47,6 @@
     var minEl = document.getElementById('clock-hand-minute');
     if (hourEl) hourEl.style.transform = 'translateX(-50%) rotate(' + hourDeg + 'deg)';
     if (minEl) minEl.style.transform = 'translateX(-50%) rotate(' + minDeg + 'deg)';
-
-    // Arc
-    var arcOffset = arcCircumference - (smoothS / 60) * arcCircumference;
-    var arcEl = document.getElementById('clock-arc');
-    if (arcEl) arcEl.setAttribute('stroke-dashoffset', arcOffset);
 
     // Greeting text
     var info = getGreeting(h);
@@ -59,11 +57,11 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       tick();
-      setInterval(tick, 50);
+      setInterval(tick, 1000);
     });
   } else {
     tick();
-    setInterval(tick, 50);
+    setInterval(tick, 1000);
   }
 })();
 </script>
